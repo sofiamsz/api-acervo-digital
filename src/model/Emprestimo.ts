@@ -295,6 +295,43 @@ class Emprestimo {
             return false;
         }
     }
+
+    /**
+     * Remove um emprétimo ativo do banco de dados
+     * 
+     * @param id_emprestimo 
+     * @returns **true** caso o empréstimo tenha sido resolvido, **false** caso contrário
+     */
+    static async removerEmprestimo(id_emprestimo: number): Promise<boolean> {
+        // tenta executar a query
+        try {
+            // monta a query
+            const queryDeleteEmprestimo = `UPDATE emprestimo 
+                                            SET status_emprestimo_registro = FALSE
+                                            WHERE id_emprestimo=$1`;
+
+            // executa a query e armazena a resposta
+            const respostaBD = await database.query(queryDeleteEmprestimo, [id_emprestimo]);
+
+            // verifica se a quantidade de linhas retornadas é diferente de 0
+            if (respostaBD.rowCount != 0) {
+                // exibe mensagem de sucesso
+                console.log('Empréstimo removido com sucesso!');
+                // altera o valor da variável para true
+                return true;
+            }
+
+            // retorna a resposta
+            return false;
+
+            // captura qualquer erro que possa acontecer
+        } catch (error) {
+            // exibe detalhes do erro no console
+            console.log(`Erro ao remover empréstimo: ${error}`);
+            // retorna a resposta
+            return false;
+        }
+    }
 }
 
 export default Emprestimo;
