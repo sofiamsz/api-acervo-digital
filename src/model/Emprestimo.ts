@@ -127,7 +127,7 @@ class Emprestimo {
                         email: linha.email
                     },
                     livro: {
-                        id_livro: linha.id_aluno,
+                        id_livro: linha.id_livro,
                         titulo: linha.titulo,
                         autor: linha.autor,
                         editora: linha.editora,
@@ -185,7 +185,7 @@ class Emprestimo {
                     email: respostaBD.rows[0].email
                 },
                 livro: {
-                    id_livro: respostaBD.rows[0].id_aluno,
+                    id_livro: respostaBD.rows[0].id_livro,
                     titulo: respostaBD.rows[0].titulo,
                     autor: respostaBD.rows[0].autor,
                     editora: respostaBD.rows[0].editora,
