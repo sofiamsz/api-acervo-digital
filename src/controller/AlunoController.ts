@@ -28,7 +28,7 @@ class AlunoController extends Aluno {
      */
     static async aluno(req: Request, res: Response) {
         try {
-            const idAluno = parseInt(req.query.idAluno as string);
+            const idAluno = parseInt(req.params.id as string);
 
             const aluno = await Aluno.listarAluno(idAluno);
             res.status(200).json(aluno);
