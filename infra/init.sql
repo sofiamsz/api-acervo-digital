@@ -130,13 +130,6 @@ VALUES
 (4, 5, '2024-09-11', '2024-09-25', 'Em andamento'),
 (6, 2, '2024-09-11', '2024-09-25', 'Em andamento');
 
--- Inserindo usuarios
-INSERT INTO usuario (nome, username, email) 
-VALUES
-('João Silva', 'joao.silva', 'joao.silva@email.com'),
-('Maria Oliveira', 'maria.oliveira', 'maria.oliveira@email.com'),
-('Carlos Souza', 'carlos.souza', 'carlos.souza@email.com');
-
 -- Aluno
 INSERT INTO Aluno (nome, sobrenome, data_nascimento, endereco, email, celular) 
 VALUES 
