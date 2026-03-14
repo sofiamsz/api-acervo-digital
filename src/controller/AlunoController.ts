@@ -97,6 +97,47 @@ class AlunoController extends Aluno {
         }
     }
 
+    /**
+     * Método para atualizar o cadastro de um aluno.
+     * 
+     * @param req Objeto de requisição do Express, contendo os dados atualizados do aluno
+     * @param res Objeto de resposta do Express
+     * @returns Retorna uma resposta HTTP indicando sucesso ou falha na atualização
+     */
+    static async atualizar(req: Request, res: Response): Promise<Response> {
+        try {
+            // Desestruturando objeto recebido pelo front-end
+            const dadosRecebidos: AlunoDTO = req.body;
+
+            // Instanciando objeto Aluno
+            const aluno = new Aluno(
+                dadosRecebidos.nome,
+                dadosRecebidos.sobrenome,
+                dadosRecebidos.data_nascimento ?? new Date("1900-01-01"),
+                dadosRecebidos.endereco ?? '',
+                dadosRecebidos.email ?? '',
+                dadosRecebidos.celular
+            );
+
+            // Define o ID do aluno, que deve ser passado na query string
+            aluno.setIdAluno(parseInt(req.params.id as string));
+
+            // Chama o método para atualizar o cadastro do aluno no banco de dados
+            const result = await Aluno.atualizarAluno(aluno);
+
+            // verifica se a atualização foi bem sucedida
+            if (result) {
+                return res.status(200).json({ mensagem: "Cadastro atualizado com sucesso." });
+            } else {
+                return res.status(500).json({ mensagem: 'Não foi possível atualizar o aluno no banco de dados.' });
+            }
+        } catch (error) {
+            // Caso ocorra algum erro, este é registrado nos logs do servidor
+            console.error(`Erro ao atualizar aluno: ${error}`);
+            // Retorna uma resposta com uma mensagem de erro
+            return res.status(500).json({ mensagem: "Erro ao atualizar aluno." });
+        }
+    }
 }
 
 export default AlunoController;
