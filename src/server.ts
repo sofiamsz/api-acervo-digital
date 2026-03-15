@@ -20,12 +20,15 @@ const server = express();
  */
 // Registra o middleware que permite ao servidor ler e interpretar corpos de requisição em formato JSON
 // Sem isso, req.body chegaria como undefined nos controllers — nenhum dado do front-end seria lido
-server.use(express.json());
+server.use(express.json({ limit: "10mb" }));
 
 // Registra o middleware CORS com as configurações padrão
 // Na configuração padrão, permite requisições de qualquer origem ("*")
 // Em produção, o ideal seria restringir para apenas os domínios autorizados
-server.use(cors());
+server.use(cors({
+    origin: process.env.CORS_ORIGIN ?? "*",
+    methods: ["GET", "POST", "PUT", "DELETE"]
+}));
 
 // Registra o router com todos os endpoints da aplicação
 // A partir daqui, toda requisição que chegar ao servidor será direcionada para a rota correspondente

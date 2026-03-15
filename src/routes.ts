@@ -18,11 +18,11 @@ const router = Router();
 // Rota GET na raiz "/" — serve para verificar se a API está no ar (chamada de "health check")
 // Quando acessada, retorna uma mensagem simples confirmando que o servidor está funcionando
 router.get('/', (req: Request, res: Response) => {
-    return res
+    res
         .status(200) // Status HTTP 200 (OK)
         // Retorna uma mensagem em JSON com a data e hora atual do servidor
         // Isso ajuda a confirmar não só que está no ar, mas também quando foi acessado
-        .json(`Aplicação online. Timestamp: ${new Date()}`);
+        .json({ mensagem: "Aplicação online.", timestamp: new Date() });
 });
 
 // ==================== ENDPOINTS DE ALUNO ====================
