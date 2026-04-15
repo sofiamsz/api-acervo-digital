@@ -3,6 +3,8 @@
 // O "type" antes de Request e Response indica que são importações apenas de tipo (não geram código JS)
 import { Router, type Request, type Response } from "express";
 
+import { Auth } from "./middleware/Auth.js";
+
 // Importa os controllers — cada um é responsável por tratar as requisições de sua entidade
 // É o controller quem recebe os dados da requisição, chama o model e devolve a resposta ao cliente
 import AlunoController from "./controller/AlunoController.js";
@@ -22,6 +24,8 @@ const router = Router();
 router.get('/', (req: Request, res: Response) => {
     res.status(200).json({ mensagem: "Aplicação online.", timestamp: new Date() });
 });
+
+router.post('/api/login', Auth.validacaoUsuario);
 
 // ==================== ENDPOINTS DE ALUNO ====================
 // Padrão REST: cada operação usa um método HTTP diferente no mesmo recurso (/api/alunos)
